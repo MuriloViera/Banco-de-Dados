@@ -1,0 +1,67 @@
+***Criação de Sequencia***
+-gerenciar auto incremento
+
+CREATE SEQUENCE "nome_sequência"
+START WITH n ->definir o valor inicial da sequência (padrão 1)
+INCREMENTE BY n ->definir o valor incremental da sequência (padrão 1)
+MINVALUE n ->o valor mínimo que a sequência poder receber (padrão 10^27)
+MAXVALUE n ->o valor máximo que a sequência pode receber (padrão 10^27)
+CACHE ->a quantidde de valores que são alocados previamente na SGA (padrão 20 valores)
+*quando a sequencia for cíclica, não pode ter cache*[NOCACHE]
+CYCLE ou NOCYCLE ->definir se a sequência será cíclica ou não (se a sequência será reiniciada)
+
+-alterar uma sequência
+ALTER SEQUENCE "nome_sequência" parâmetro(s)
+*não é possivel alterar o valor inicial de uma sequência*
+
+-excluir uma sequência
+DROP SEQUENCE "nome_sequência"
+
+-utilizar/manipular a sequência
+CURRVAL - retorna o valor atual da sequência
+NEXTVAL - incrementa o valor da sequência,segue a sequencia
+
+-ver as sequencias 
+SELECT * FROM USER_SEQUENCES;
+
+EXEMPLOS DE SEQUENCIA:
+CREATE SEQUENCE SEQ_ID_CATEGORIA
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 99
+NOCYCLE;
+
+CREATE SEQUENCE SEQ_ID_PRODUTO
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 9999
+NOCYCLE;
+
+CREATE SEQUENCE SEQ_SENHA
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 99
+CYCLE;
+
+SELECT SEQ_SENHA.CURRVAL FROM DUAL;
+SELECT SEQ_SENHA.NEXTVAL FROM DUAL;
+
+**INSERIR REGISTRO EM UMA SEQUENCIA**
+INSERT
+
+sintaxe:INSERT INTO "nome_tabela"(atributo(s) VALUES (valor(es));
+
+Exemplos inserir registro em sequencia:
+INSERT INTO CATEGORIA(id_categoria, nom_categoria)
+VALUES(SEQ_ID_CATEGORIA.NEXTVAL,'Limpeza');
+
+INSERT INTO CATEGORIA(id_categoria, nom_categoria)
+VALUES(SEQ_ID_CATEGORIA.NEXTVAL, 'Bebidas');
+
+
+
+
+

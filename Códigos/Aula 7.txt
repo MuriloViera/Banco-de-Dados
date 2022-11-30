@@ -1,0 +1,44 @@
+COMMIT - Gravar fisicamente o(s) registro(s)
+ROLLBACK - Desfaz as transações que ainda não foram ratificadas (desfaz
+todas as transações até o último commit ou savepoint)
+SAVEPOINT - Ponto de salvamento para o gerenciamento de commit/rollback
+
+Exemplos:
+INSERT INTO PRODUTO VALUES (SEQ_ID_PRODUTO.NEXTVAL, 'Produto A', 1, 10); 
+
+INSERT INTO PRODUTO VALUES (SEQ_ID_PRODUTO.NEXTVAL, 'Produto B', 2, 5.5);
+
+SELECT * FROM PRODUTO; ->Mostrar o que tem na tabela produto
+
+SELECT SEQUENCE_NAME FROM USER_SEQUENCES; 
+
+Exemplos:
+ROLLBACK->Volta tudo até o ultimo commit,ou,caso nao tenha commit,volta
+até a hora do meu login
+
+SAVEPOINT PA;->Crio um ponto de save
+
+ROLLBACK TO PA;->Volto tudo até o meu ponto de save PA
+
+**ALTERAR REGISTROS**
+UPADATE - Alterar registros de uma tabela de um banco de dados
+
+Sintaxe:
+UPDATE "nome da tabela SET atributo = novo_valor [WHERE condição]
+
+Exemplo:
+UPDATE PRODUTO SET NOM_PRODUTO = 'Produto XYZ', VLR_PRODUTO = 4.2 WHERE ID_PRODUTO = 1;
+
+UPDATE PRODUTO SET VLR_PRODUTO = 1.99;->Sem colocar o where,ele vai mudar TODOS os produto
+
+**EXCLUIR REGISTROS**
+DELETE - Apagar os regitros de uma tabela de um banco de dados
+
+Sintaxe:
+DELETE "nome da tabela" [WHERE condição]
+obs:Se não especificar uma condição todos os registros serão apagados
+
+Exemplos:
+DELETE PRODUTO WHERE ID_PRODUTO = 3 ->Exclui o produto com id 3
+
+

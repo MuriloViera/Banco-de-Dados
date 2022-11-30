@@ -1,0 +1,45 @@
+PROCEDIMENTOS(PROCEDURE)
+Exemplo:Retornar o valor total de um orçamento a partir do seu numero(id_orcamento)
+
+CREATE OR REPLACE PROCEDURE PTOTAL(VNUMERO IN 
+ITEM_ORCAMENTO.ID_ORCAMENTO%TYPE) -- aqui é so pra eu falar que quero que VNUMERO seja do tipo daqueles dois ali
+IS
+VTOTAL NUMBER(12,2);
+BEGIN
+SELECT SUM(QTD_ORCAMENTO*VLR_ITEM_ORCAMENTO) INTO VTOTAL
+FROM ITEM_ORCAMENTO WHERE ID_ORCAMENTO=VNUMERO;
+DBMS_OUTPUT.PUT_LINE('Total=R$'||VTOTAL);
+EXCEPTION
+WHEN OTHERS THEN
+DBMS_OUTPUT.PUT_LINE('Erro ou id_orcamento inexistente...');
+END;
+
+-Caso ele seja criado com erros:
+SHOW ERRORS;-Mostra os erros
+
+-Vou chamar minha função/parametro passando 5 pra VNUMERO
+EXECUTE PTOTAL(5);
+ou
+EXEC PTOTAL(5);
+
+-Aqui ele nao vai mostrar nada por que eu nao habilitei as mensagens la do DBMS(ultima aula), ai eu tenho que habilitar as mensagens
+SET SERVEROUTPUT ON;
+
+Exemplo:-----------------
+Procedimento para cadastrar clientes
+
+CREATE OR REPLACE PROCEDURE CADCLI(VNOME IN CLIENTE.NOM_CLIENTE%TYPE, 
+VDTNASC IN CLIENTE.DTN_CLIENTE%TYPE,
+VDOC IN CLIENTE.DOC_CLIENTE%TYPE)
+AS
+BEGIN
+INSERT INTO CLIENTE VALUES(SEQ_COD_CLIENTE.NEXTVAL, VNOME, VDTNASC, VDOC);
+COMMIT;
+EXCEPTION
+WHEN OTHERS THEN
+DBMS_OUTPUT.PUT_LINE('Erro na execução...');
+END;
+
+-Chamando
+EXEC CADCLI('Silvia','01/01/1980','987654321');
+

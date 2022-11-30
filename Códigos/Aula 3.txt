@@ -1,0 +1,107 @@
+CRIAÇÃO DE USUÁRIO
+CREATE USER
+
+Sintaxe:
+CREATE USER "nome usuário"
+IDENTIFIED BY "senha"
+DEFAULT TABLESPACE "nome do tablespace padrão"
+TEMPORARY TABLESPACE "nome do tablespace temporário"
+ACCOUNT "status da conta" [LOCK | UNLOCK]
+PROFILE "perfil" -- limites/regras para o usuário
+QUOTA [n k|m] ON "nome tablespace"
+
+Exemplo:
+CREATE USER "2M12274"
+IDENTIFIED BY "123465"
+DEFAULT TABLESPACE "2M2020_CODIGO"
+TEMPORARY TABLESPACE "TEMP"
+ACCOUNT UNLOCK
+PROFILE DEFAULT;
+
+--listar nome nome dos usuários do banco de dados
+As informações do usuário ficam armazenadas na tabela
+DBA_USERS
+
+SELECT USERNAME FROM DBA_USERS;
+
+ALTERAR USUÁRIO
+ALTER USER
+
+Sintaxe:
+ALTER USER "nome usuário" [parâmetro(s) que desejar alterar]
+
+Exemplo:
+ALTER USER "2M_12274" IDENTIFIED BY "unaerp";
+ALTER USER "2M_12274" ACCOUNT LOCK;
+
+DISC OU DISCONNECT - desconeta do banco de dados
+CONN OU CONNECT - conecta ao banco de dados
+
+GRANT - atribuir direito(s) para um usuário do banco de dados
+Alguns direitos de sistemas
+- CREATE SESSION
+- CREATE ANY TABLE
+- CREATE USER
+- ALTER ANY TABLE
+
+Alguns direitos de objetos
+- SELECT ANY TABLE
+- INSERT
+
+Sintaxe:
+GRANT direito(s)/papel TO "nome usuário ou papel"
+
+Exemplo:
+GRANT CREATE SESSION, CREATE ANY TABLE, SELECT ANY TABLE TO "2M_12274";
+
+--mostrar as tabelas de um tablespace
+SELECT * FROM TAB;
+
+CREATE TABLE TESTE
+(
+X NUMBER(2),
+Y NUMBER(2)
+);
+
+EXCLUIR USUÁRIO
+DROP USER
+
+Sintaxe:
+DROP USER "nome usuário" [CASCADE]
+
+Exemplo:
+DROP USER "2M_12274";
+
+DROP USER "2M_12274" CASCADE;
+
+
+CRIAÇÃO DE PAPEL
+CREATE ROLE
+
+Sintaxe:
+CREATE ROLE "nome papel"
+
+Exemplo:
+CREATE ROLE "PAPELCODIGO";
+
+SHOW USER - mostra o usuário conectado
+
+--atribuir direitos para o papel
+GRANT ALTER ANY TABLE, DROP ANY TABLE TO PAPELCODIGO;
+
+--atribuir o papel para o usuário
+GRANT PAPELCODIGO TO "2M_12274";
+
+RETIRAR DIREITO(S)/PAPEL(IS) DO USUÁRIO
+REVOKE
+
+Sintaxe:
+REVOKE direito(s)/papel(is) FROM "nome usuário"
+
+Exemplo:
+REVOKE SELECT ANY TABLE FROM "2M_12274";
+
+GRANT SELECT ANY TABLE TO "2M_12274";
+
+
+

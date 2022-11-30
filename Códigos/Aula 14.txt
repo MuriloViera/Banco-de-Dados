@@ -1,0 +1,51 @@
+FUNCTIONS(FUNÇÕES)
+Progama PL/SQL que permite o retorno de informações.
+
+Sintaxe:
+CREATE[OR REPLACE] FUNCTION "nome da função"(parametro tipo_do_parâmetro tipo_dado_parametro,..)
+RETURN tipo_do_retorno
+IS ou AS(AS se eu nao tiver variavel)
+--Declaração das variaveis
+BEGIN
+--instruções PL/SQL
+RETURN o que será retornado
+END;
+
+EXEMPLO:Função para retornar o documento do cliente formatado--------------------------------
+
+CREATE OR REPLACE FUNCTION FORMATADOC(VDOC IN CLIENTE.DOC_CLIENTE%TYPE)
+RETURN VARCHAR2
+IS
+VDOCFORMATADO VARCHAR2(19);
+BEGIN
+IF(LENGTH(VDOC)=11) THEN
+	VDOCFORMATADO :=SUBSTR(VDOC,1,3)||'.'||SUBSTR(VDOC,4,3)||'.'||SUBSTR(VDOC,7,3)||'-'||
+	SUBSTR(VDOC,10);
+ELSIF(LENGTH(VDOC)=14) THEN
+	VDOCFORMATADO :=SUBSTR(VDOC,1,2)||'.'||SUBSTR(VDOC,3,3)||'.'||SUBSTR(VDOC,5,3)||'/'||
+	SUBSTR(VDOC,9,4)||'-'||SUBSTR(VDOC,13);
+ELSE
+	VDOCFORMATADO := VDOC;
+END IF;
+RETURN VDOCFORMATADO;
+END;
+
+Testando:A função FORMATADOC
+SELECT NOM_CLIENTE, FORMATADOC(DOC_CLIENTE)DOCUMENTO FROM CLIENTE;
+
+O substr funciona assim, tu coloca a variavel, ai depois da primeira virgula coloca qual posição
+tu quer e depois da segunda virgula, tu coloca quantos contando a partir dessa posição tu quer
+pegar, ai coloca || e coloca entre aspas o que tu quer colocar naquele lugar, seja um . ou -
+
+EXEMPLO:Função pra retornar a idade do cliente-----------------------------------------------
+CREATE OR REPLACE FUNCTION IDADE(VDTN IN CLIENTE.DTN_CLIENTE%TYPE)
+RETURN NUMBER
+IS
+VIDADE NUMBER(3);
+BEGIN
+VIDADE := TRUNC(MONTHS_BETWEEN(SYSDATE,VDTN)/12);
+RETURN VIDADE;
+END;
+
+TESTAR:
+SELECT NOM_CLIENTE, IDADE(DTN_CLIENTE) IDADE FROM CLIENTE;

@@ -1,0 +1,45 @@
+Tipos de dados
+CHAR - caracteres
+VARCHAR2 - caracteres variáveis
+INTEGER - números inteiros
+NUMBER - números reais
+DATE - data
+LONG - textos até 2 gigabytes*
+LONG RAW - objetos binários (imagens) até 2 gigabytes*
+LOB = CLOB, BLOB e BFILE - objetos binários (vídeos, imagens, arquivos
+de som, entre outros) - até 128 terabytes
+
+CRIAÇÃO DE TABELAS
+CREATE TABLE
+
+Sintaxe:
+CREATE TABLE "nome_tabela"
+(
+nome_atributo1 tipo_dado_atributo1 [NULL | NOT NULL | UNIQUE],
+nome_atributo2 tipo_dado_atributo2 [NULL | NOT NULL | UNIQUE],
+...
+CONSTRAINT [PRIMARY KEY | FOREIGN KEY | CHECK]
+);
+
+--sintaxe básica para criação de constraints
+NOME TIPO [PRIMARY KEY|FOREIGN KEY|CHECK]
+
+Exemplo:
+CREATE TABLE "CLIENTE"
+(
+ID_CLIENTE INTEGER,
+NOM_CLIENTE VARCHAR2(40) NOT NULL,
+DTN_CLIENTE DATE,
+CONSTRAINT PK_CLIENTE PRIMARY KEY (ID_CLIENTE)
+);
+
+-- tabelas do usuário USER_TABLES;
+-- constraints do usuário USER_CONSTRAINTS;
+
+SELECT TABLE_NAME FROM USER_TABLES;
+-- mostrar o nome das tabelas do usuário conectado
+
+SELECT CONSTRAINT_NAME FROM USER_CONSTRAINTS;
+-- mostrar o nome das constraints das tabelas do usuário conectado
+
+

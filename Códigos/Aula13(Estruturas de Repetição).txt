@@ -1,0 +1,44 @@
+Estruturas de Repetição PL/SQL
+
+Estrutura de repetição FOR
+Sintaxe:
+FOR controle IN valor inicial..valor final
+LOOP
+	//instruções PL/SQL
+END LOOP;
+
+Exemplo (1):------------------------------------
+DECLARE
+VCONTROLE NUMBER(2);
+BEGIN
+VCONTROLE :=11;
+FOR VCONTROLE IN 11..20
+LOOP
+IF(VCONTROLE <=15) THEN
+	INSERT INTO PRODUTO VALUES(VCONTROLE,'Produto X'||
+VCONTROLE,3,10+VCONTROLE);
+ELSE
+	INSERT INTO PRODUTO VALUES(VCONTROLE,'Produto Z'||
+VCONTROLE,5,20+VCONTROLE);
+END IF;
+END LOOP;
+END;
+
+Estrutura de repetição WHILE
+Sintaxe:
+WHILE(condição)
+LOOP
+//instruções PL/SQL
+END LOOP;
+
+Exemplo (2):--------------------------------
+DECLARE
+VCONTROLE NUMBER(2);
+BEGIN
+VCONTROLE := 15;
+WHILE(VCONTROLE <= 20)
+LOOP
+UPDATE PRODUTO SET VLR_PRODUTO = VLR_PRODUTO*1.05 WHERE ID_PRODUTO = VCONTROLE;
+VCONTROLE := VCONTROLE+1;
+END LOOP;
+END;
